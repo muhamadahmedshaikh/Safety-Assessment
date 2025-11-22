@@ -157,20 +157,35 @@ function goBackToSectionA(){
 }
 
 // ✅ Submit + Send to Google Sheet
-function submitTest(){
+
+    function submitTest() {
     sectionA.style.display="none";
     sectionB.style.display="none";
     resultPage.style.display="block";
 
-    let sectionA_score=0, sectionB_score=0, total=0;
-    let answers=[], correctAnswers=[], status=[];
+    let sectionA_score = 0, sectionB_score = 0, total = 0;
+    let questions = [
+      "What is the first step in hazard identification?",
+      "PPE stands for?",
+      "Fire extinguisher type for electrical fire?",
+      "Safety signs in red indicate?",
+      "Purpose of a risk assessment?",
+      "Minimum safe distance from welding arc?",
+      "Best way to prevent slips?",
+      "Lockout/Tagout is used for?",
+      "Unsafe condition example?",
+      "Safe ladder angle?"
+    ];
+    let answers = [];
+    let correctAnswers = [];
+    let status = [];
 
-    for(let i=1;i<=10;i++){
-        const sel=document.querySelector(`input[name="q${i}"]:checked`);
-        const cor=document.querySelector(`input[name="q${i}"][data-correct]`);
+    for(let i = 1; i <= 10; i++){
+        const sel = document.querySelector(`input[name="q${i}"]:checked`);
+        const cor = document.querySelector(`input[name="q${i}"][data-correct]`);
 
         const selected = sel ? sel.value : "Not answered";
-        const correct  = cor ? cor.value : "";
+        const correct = cor ? cor.value : "";
 
         answers.push(selected);
         correctAnswers.push(correct);
@@ -178,12 +193,27 @@ function submitTest(){
         if(selected === correct){
             status.push("Correct");
             total++;
-            if(i<=5) sectionA_score++;
+            if(i <= 5) sectionA_score++;
             else sectionB_score++;
         } else {
             status.push("Wrong");
         }
     }
+
+    // ✅ PASTE THIS HERE ✅
+    queuePayload({
+      name: document.getElementById("username").value,
+      sectionA: sectionA_score,
+      sectionB: sectionB_score,
+      totalScore: total,
+      questions,
+      answers,
+      correctAnswers,
+      status,
+      timestamp: new Date().toISOString()
+    });
+}
+
 
     fetch(WEB_APP_URL, {
         method:"POST",
@@ -205,3 +235,4 @@ function submitTest(){
 
 </body>
 </html>
+
