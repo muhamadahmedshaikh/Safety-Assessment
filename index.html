@@ -81,7 +81,6 @@
         <label><input type="radio" name="q5" value="Increase paperwork"> Increase paperwork</label>
     </div>
 
-    <!-- Left aligned NEXT -->
     <div style="display:flex; gap:6px; margin-top:10px;">
         <button class="start-btn" onclick="goToSectionB()">Next →</button>
     </div>
@@ -122,7 +121,6 @@
         <label><input type="radio" name="q10" value="30°"> 30°</label>
     </div>
 
-    <!-- Left aligned BACK + SUBMIT -->
     <div style="display:flex; gap:6px; margin-top:10px;">
         <button class="start-btn ghost" onclick="goBackToSectionA()">← Back</button>
         <button class="submit-btn" onclick="submitTest()">Submit</button>
@@ -138,50 +136,12 @@
 </div>
 
 
-<!-- ================= LOGIC + SEND TO GOOGLE SHEETS ================= -->
 <script>
-
-// Your Google Web App URL
+// ✅ YOUR GOOGLE WEB APP URL
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2I9zGY1MrW3h1njOooyA3qIxsZpuig_bYj9NIo8m3d6_mz_getCXTWSZ4HdHHoU0J8A/exec";
 
-// Queue to guarantee sending
-let sendQueue = JSON.parse(localStorage.getItem("sendQueue") || "[]");
-
-function queuePayload(data){
-    sendQueue.push(data);
-    localStorage.setItem("sendQueue", JSON.stringify(sendQueue));
-    sendNext();
-}
-
-function sendNext(){
-    if(sendQueue.length === 0) return;
-
-    fetch(WEB_APP_URL, {
-  method: "POST",
-  mode: "no-cors",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(sendQueue[0])
-})
-
-    })
-    .then(()=>{
-        sendQueue.shift();
-        localStorage.setItem("sendQueue", JSON.stringify(sendQueue));
-        if(sendQueue.length > 0) sendNext();
-    })
-    .catch(()=> setTimeout(sendNext, 5000));
-}
-
-setInterval(sendNext, 10000);
-
-
-// PAGE FLOW
-function startTest() {
-    if(document.documentElement.requestFullscreen){
-        document.documentElement.requestFullscreen().catch(()=>{});
-    }
+// ✅ Page Flow
+function startTest(){
     startPage.style.display="none";
     sectionA.style.display="block";
 }
@@ -196,8 +156,7 @@ function goBackToSectionA(){
     sectionA.style.display="block";
 }
 
-
-// SUBMIT LOGIC
+// ✅ Submit + Send to Google Sheet
 function submitTest(){
     sectionA.style.display="none";
     sectionB.style.display="none";
@@ -226,20 +185,23 @@ function submitTest(){
         }
     }
 
-    queuePayload({
-        name:document.getElementById("username").value,
-        sectionA:sectionA_score,
-        sectionB:sectionB_score,
-        totalScore:total,
-        answers,
-        correctAnswers,
-        status,
-        timestamp:new Date().toISOString()
+    fetch(WEB_APP_URL, {
+        method:"POST",
+        mode:"no-cors",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            name:document.getElementById("username").value,
+            sectionA:sectionA_score,
+            sectionB:sectionB_score,
+            totalScore:total,
+            answers,
+            correctAnswers,
+            status,
+            timestamp:new Date().toISOString()
+        })
     });
 }
-
 </script>
+
 </body>
 </html>
-
-
