@@ -6,13 +6,11 @@
 
 <style>
     body { font-family: Arial, sans-serif; background:#eef3f7; margin:0; }
-
     .container {
         width:90%; max-width:900px; margin:25px auto;
         background:white; padding:20px 24px;
         border-radius:10px; box-shadow:0 0 10px #ccc;
     }
-
     .start-btn, .submit-btn {
         background:#1a73e8; color:white;
         padding:10px 20px; border:none;
@@ -20,7 +18,6 @@
         font-size:15px; font-weight:600;
     }
     .ghost { background:#e8eeff; color:#1a73e8; border:1px solid #bcd0ff; }
-
     .question { margin:14px 0; padding:10px; background:#f8fbff; border-radius:6px; }
     .question p { font-weight:600; }
 </style>
@@ -28,26 +25,22 @@
 
 <body>
 
-<!-- ================= START PAGE ================= -->
+<!-- START PAGE -->
 <div class="container" id="startPage">
     <h1>Safety Competence Assessment</h1>
-
     <p><b>Instructions:</b></p>
     <ul>
         <li>You have <b>100 minutes</b> to complete the test.</li>
-        <li>Test will switch to <b>full-screen mode</b>.</li>
         <li>This demo contains <b>10 MCQs</b>.</li>
         <li>Each question carries <b>1 mark</b>.</li>
     </ul>
 
     <label><b>Enter Your Name:</b></label><br>
     <input id="username" style="padding:8px;width:60%;margin:8px 0;">
-
     <button class="start-btn" onclick="startTest()">Start Test</button>
 </div>
 
-
-<!-- ================= SECTION A ================= -->
+<!-- SECTION A -->
 <div class="container" id="sectionA" style="display:none;">
     <h1>Section A – General Safety</h1>
 
@@ -81,13 +74,10 @@
         <label><input type="radio" name="q5" value="Increase paperwork"> Increase paperwork</label>
     </div>
 
-    <div style="display:flex; gap:6px; margin-top:10px;">
-        <button class="start-btn" onclick="goToSectionB()">Next →</button>
-    </div>
+    <button class="start-btn" onclick="goToSectionB()">Next →</button>
 </div>
 
-
-<!-- ================= SECTION B ================= -->
+<!-- SECTION B -->
 <div class="container" id="sectionB" style="display:none;">
     <h1>Section B – Workplace Safety</h1>
 
@@ -121,49 +111,31 @@
         <label><input type="radio" name="q10" value="30°"> 30°</label>
     </div>
 
-    <div style="display:flex; gap:6px; margin-top:10px;">
-        <button class="start-btn ghost" onclick="goBackToSectionA()">← Back</button>
-        <button class="submit-btn" onclick="submitTest()">Submit</button>
-    </div>
+    <button class="ghost start-btn" onclick="goBackToSectionA()">← Back</button>
+    <button class="submit-btn" onclick="submitTest()">Submit</button>
 </div>
 
-
-<!-- ================= THANK YOU PAGE ================= -->
+<!-- THANK YOU PAGE -->
 <div class="container" id="resultPage" style="display:none;">
-    <h1>Thank You</h1>
+    <h1>Thank You ✅</h1>
     <p>Your response has been recorded.</p>
-    <p>You may close this tab.</p>
 </div>
-
 
 <script>
-// ✅ YOUR GOOGLE WEB APP URL
+// ✅ Your Google Script URL
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2I9zGY1MrW3h1njOooyA3qIxsZpuig_bYj9NIo8m3d6_mz_getCXTWSZ4HdHHoU0J8A/exec";
 
-// ✅ Page Flow
-function startTest(){
-    startPage.style.display="none";
-    sectionA.style.display="block";
-}
+// ✅ Navigation
+function startTest(){ startPage.style.display="none"; sectionA.style.display="block"; }
+function goToSectionB(){ sectionA.style.display="none"; sectionB.style.display="block"; }
+function goBackToSectionA(){ sectionB.style.display="none"; sectionA.style.display="block"; }
 
-function goToSectionB(){
-    sectionA.style.display="none";
-    sectionB.style.display="block";
-}
-
-function goBackToSectionA(){
-    sectionB.style.display="none";
-    sectionA.style.display="block";
-}
-
-// ✅ Submit + Send to Google Sheet
-
-    function submitTest() {
+// ✅ Submit Function — Sends to Google Sheets
+function submitTest(){
     sectionA.style.display="none";
     sectionB.style.display="none";
     resultPage.style.display="block";
 
-    let sectionA_score = 0, sectionB_score = 0, total = 0;
     let questions = [
       "What is the first step in hazard identification?",
       "PPE stands for?",
@@ -176,54 +148,38 @@ function goBackToSectionA(){
       "Unsafe condition example?",
       "Safe ladder angle?"
     ];
-    let answers = [];
-    let correctAnswers = [];
-    let status = [];
 
-    for(let i = 1; i <= 10; i++){
-        const sel = document.querySelector(`input[name="q${i}"]:checked`);
-        const cor = document.querySelector(`input[name="q${i}"][data-correct]`);
+    let answers=[], correctAnswers=[], status=[];
+    let sectionA_score=0, sectionB_score=0, total=0;
 
+    for(let i=1;i<=10;i++){
+        const sel=document.querySelector(`input[name="q${i}"]:checked`);
+        const cor=document.querySelector(`input[name="q${i}"][data-correct]`);
+        
         const selected = sel ? sel.value : "Not answered";
-        const correct = cor ? cor.value : "";
+        const correct  = cor ? cor.value : "";
 
         answers.push(selected);
         correctAnswers.push(correct);
 
-        if(selected === correct){
+        if(selected===correct){
             status.push("Correct");
             total++;
-            if(i <= 5) sectionA_score++;
+            if(i<=5) sectionA_score++;
             else sectionB_score++;
-        } else {
-            status.push("Wrong");
-        }
+        } else status.push("Wrong");
     }
-
-    // ✅ PASTE THIS HERE ✅
-    queuePayload({
-      name: document.getElementById("username").value,
-      sectionA: sectionA_score,
-      sectionB: sectionB_score,
-      totalScore: total,
-      questions,
-      answers,
-      correctAnswers,
-      status,
-      timestamp: new Date().toISOString()
-    });
-}
-
 
     fetch(WEB_APP_URL, {
         method:"POST",
         mode:"no-cors",
-        headers:{"Content-Type":"application/json"},
+        headers:{ "Content-Type":"application/json" },
         body:JSON.stringify({
             name:document.getElementById("username").value,
             sectionA:sectionA_score,
             sectionB:sectionB_score,
             totalScore:total,
+            questions,
             answers,
             correctAnswers,
             status,
@@ -232,9 +188,6 @@ function goBackToSectionA(){
     });
 }
 </script>
-
 </body>
 </html>
-
-
 
