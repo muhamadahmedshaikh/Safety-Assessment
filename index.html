@@ -11,11 +11,70 @@
         background:white; padding:20px 24px;
         border-radius:10px; box-shadow:0 0 10px #ccc;
     }
-    .start-btn, .submit-btn {
+ .main {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .front-page  {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    }
+    .start-button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: #38bdf8;
+      border: none;
+      border-radius: 10px;
+      color: #0f172a;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .start-button:hover {
+      background: #0ea5e9;
+    } 
+
+     .start-btn, .submit-btn {
         background:#1a73e8; color:white;
         padding:10px 20px; border:none;
         border-radius:6px; cursor:pointer;
         font-size:15px; font-weight:600;
+    }
+.instructions {
+      background: rgba(255,255,255,0.05);
+      padding: 18px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .instructions p {
+      margin: 10px 0;
+      line-height: 1.5;
+      font-size: 15px;
+      color: #cbd5e1;
+    }
+.footer-note {
+      margin-top: 12px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
     }
     .ghost { background:#e8eeff; color:#1a73e8; border:1px solid #bcd0ff; }
     .question { margin:14px 0; padding:10px; background:#f8fbff; border-radius:6px; }
@@ -26,138 +85,384 @@
 <body>
 
 <!-- START PAGE -->
-<div class="container" id="startPage">
+<div class="main">
+<div class="front-page" id="startPage">
     <h1>Safety Competence Assessment</h1>
-    <p><b>Instructions:</b></p>
-    <ul>
-        <li>You have <b>100 minutes</b> to complete the test.</li>
-        <li>This demo contains <b>10 MCQs</b>.</li>
-        <li>Each question carries <b>1 mark</b>.</li>
-    </ul>
-
+       <div class="instructions">
+      <p>• You will be given <strong>25 minutes</strong> to complete the test.</p>
+      <p>• During the test, you will be required to stay in <strong>full-screen mode</strong>. Pressing <strong>esc</strong> will automatically &nbsp;&nbsp;submit the test.</p>
+      <p>• The test contains <strong>20 MCQs</strong>, each carrying <strong>01 mark</strong>.</p>
+      <p>• Ensure stable internet and do not refresh the page once the test begins.</p>
     <label><b>Enter Your Name:</b></label><br>
-    <input id="username" style="padding:8px;width:60%;margin:8px 0;">
-    <button class="start-btn" onclick="startTest()">Start Test</button>
+    <input id="username" style="padding:8px;width:60%;margin:8px 0;"><br>
+
+    <label><b>Enter Your Email:</b></label><br>
+    <input id="userEmail" type="email" placeholder="example@piogcl.com"
+           style="padding:8px;width:60%;margin:8px 0;"><br>
+
+    <label><b>Designation:</b></label><br>
+    <input id="designation" style="padding:8px;width:60%;margin:8px 0;"><br>
+ </div>
+    <button class="start-button" onclick="startTest()">Start Test</button>
+ <div class="footer-note">
+      Read the instructions carefully before starting the test.
+    </div>
+</div>
 </div>
 
 <!-- SECTION A -->
 <div class="container" id="sectionA" style="display:none;">
-    <h1>Section A – General Safety</h1>
+    <h1>Driving Safety</h1>
+    <h3 id="timer" style="color:red; font-size:20px; font-weight:bold;">Time Left: 20:00</h3>
 
     <div class="question">
-        <p>1. What is the first step in hazard identification?</p>
-        <label><input type="radio" name="q1" value="Observe workplace" data-correct="Observe workplace"> Observe workplace</label><br>
-        <label><input type="radio" name="q1" value="Ignore hazards"> Ignore hazards</label>
+        <p>1. What is the common rule of thumb to maintain safe distance that must be kept while driving from another car?</p>
+         <label><input type="radio" name="q1" value="1 second"> 1 second</label><br>
+        <label><input type="radio" name="q1" value="2 seconds"> 2 seconds</label><br>
+        <label><input type="radio" name="q1" value="3 seconds" data-correct="3 seconds"> 3 seconds</label><br>
+        <label><input type="radio" name="q1" value="5 seconds"> 5 seconds</label>
     </div>
 
     <div class="question">
-        <p>2. PPE stands for?</p>
-        <label><input type="radio" name="q2" value="Personal Protective Equipment" data-correct="Personal Protective Equipment"> Personal Protective Equipment</label><br>
-        <label><input type="radio" name="q2" value="People Protection Exam"> People Protection Exam</label>
+        <p>2. What are the maximum number of hours drivers can drive continuously without resting?</p>
+       <label><input type="radio" name="q2" value="3 hours"> 3 hours</label><br>
+       <label><input type="radio" name="q2" value="4 hours"> 4 hours</label><br>
+       <label><input type="radio" name="q2" value="3.5 hours"> 3.5 hours</label><br>
+       <label><input type="radio" name="q2" value="4.5 hours" data-correct="4.5 hours"> 4.5 hours</label>
     </div>
 
     <div class="question">
-        <p>3. Fire extinguisher type for electrical fire?</p>
-        <label><input type="radio" name="q3" value="CO₂" data-correct="CO₂"> CO₂</label><br>
-        <label><input type="radio" name="q3" value="Water"> Water</label>
+        <p>3. What are the weekly driving hour restrictions as per the company policy?</p>
+        <label><input type="radio" name="q3" value="Drivers are not allowed to drive more than 90 Hrs" data-correct="Drivers are not allowed to drive more than 90 Hrs"> Drivers are not allowed to drive more than 90 Hrs</label><br>
+        <label><input type="radio" name="q3" value="Drivers are not allowed to drive more than 70 Hrs"> Drivers are not allowed to drive more than 70 Hrs</label><br>
+        <label><input type="radio" name="q3" value="Drivers are not allowed to drive more than 75 Hrs"> Drivers are not allowed to drive more than 75 Hrs</label><br>
+        <label><input type="radio" name="q3" value="Drivers are not allowed to drive more than 80 Hrs"> Drivers are not allowed to drive more than 80 Hrs</label>
     </div>
 
     <div class="question">
-        <p>4. Safety signs in red indicate?</p>
-        <label><input type="radio" name="q4" value="Prohibition" data-correct="Prohibition"> Prohibition</label><br>
-        <label><input type="radio" name="q4" value="Mandatory"> Mandatory</label>
+        <p>4. Is there a specific form to be filled before to start a driving journey in particular areas</p>
+        <label><input type="radio" name="q4" value="Journey management checklist"> Journey management checklist</label><br>
+        <label><input type="radio" name="q4" value="Prohibition" data-correct="Journey management form"> Journey management form</label><br>
+        <label><input type="radio" name="q4" value="No form is required"> No form is required</label><br>
+        <label><input type="radio" name="q4" value="Only fill the feedback form"> Only fill the feedback form</label>
     </div>
 
     <div class="question">
-        <p>5. Purpose of a risk assessment?</p>
-        <label><input type="radio" name="q5" value="Identify hazards" data-correct="Identify hazards"> Identify hazards</label><br>
-        <label><input type="radio" name="q5" value="Increase paperwork"> Increase paperwork</label>
+        <p>5. What is the primary reason that vehicles must be equipped with spark arrestors before entering a plant?</p>
+        <label><input type="radio" name="q5" value="To reduce vehicle fuel consumption"> To reduce vehicle fuel consumption</label><br>
+        <label><input type="radio" name="q5" value="To control engine noise levels"> To control engine noise levels</label><br>
+        <label><input type="radio" name="q5" value="Identify hazards" data-correct="To prevent sparks that could ignite fires or explosions"> To prevent sparks that could ignite fires or explosions</label><br>
+        <label><input type="radio" name="q5" value="To improve vehicle speed and performance"> To improve vehicle speed and performance</label>
     </div>
 
-    <button class="start-btn" onclick="goToSectionB()">Next →</button>
+<div class="question">
+        <p>6. What does the acronym IVMS represent, and what is its main purpose in plant or fleet operations?</p>
+        <label><input type="radio" name="q6" value="Integrated Vehicle Maintenance System – Mainly for repairing breakdowns"> Integrated Vehicle Maintenance System – Mainly for repairing breakdowns</label><br>
+        <label><input type="radio" name="q6" value="In-Vehicle Monitoring System – Enhances safety, compliance, and efficiency" data-correct="In-Vehicle Monitoring System – Enhances safety, compliance, and efficiency"> In-Vehicle Monitoring System – Enhances safety, compliance, and efficiency</label><br>
+        <label><input type="radio" name="q6" value="Internal Vehicle Management Software – Only used for vehicle registration"> Internal Vehicle Management Software – Only used for vehicle registration</label><br>
+        <label><input type="radio" name="q6" value="Intelligent Vehicle Mapping Service – Provides GPS navigation only"> Intelligent Vehicle Mapping Service – Provides GPS navigation only</label>
+    </div>
+
+    <button class="start-btn" onclick="goToSectionB()">Next</button>
 </div>
 
 <!-- SECTION B -->
 <div class="container" id="sectionB" style="display:none;">
-    <h1>Section B – Workplace Safety</h1>
+    <h1>Management of Change</h1>
+    <h3 id="timer" style="color:red; font-size:20px; font-weight:bold;">Time Left: 20:00</h3>
 
     <div class="question">
-        <p>6. Minimum safe distance from welding arc?</p>
-        <label><input type="radio" name="q6" value="10 meters" data-correct="10 meters"> 10 meters</label><br>
-        <label><input type="radio" name="q6" value="1 meter"> 1 meter</label>
+        <p>7. Which type of changes typically require a Management of Change (MOC)?</p>
+        <label><input type="radio" name="q7" value="Only operational changes"> Only operational changes</label><br>
+        <label><input type="radio" name="q7" value="Only design modifications"> Only design modifications</label><br>
+        <label><input type="radio" name="q7" value="All Permanent and temporary changes" data-correct="All Permanent and temporary changes"> All Permanent and temporary changes</label><br>
+        <label><input type="radio" name="q7" value="Minor routine adjustments"> Minor routine adjustments</label>
     </div>
 
     <div class="question">
-        <p>7. Best way to prevent slips?</p>
-        <label><input type="radio" name="q7" value="Keep floor clean and dry" data-correct="Keep floor clean and dry"> Keep floor clean</label><br>
-        <label><input type="radio" name="q7" value="Walk fast"> Walk fast</label>
+        <p>8. What are the main documents required to be attached to a MOC form?</p>
+        <label><input type="radio" name="q8" value="HAZOP"> HAZOP</label><br>
+        <label><input type="radio" name="q8" value="PSSR"> PSSR</label><br>
+        <label><input type="radio" name="q8" value="Mechanical Completion Certificate"> Mechanical Completion Certificate</label><br>
+        <label><input type="radio" name="q8" value="All above" data-correct="All above"> All above</label>
+      
     </div>
 
     <div class="question">
-        <p>8. Lockout/Tagout is used for?</p>
-        <label><input type="radio" name="q8" value="Isolate energy" data-correct="Isolate energy"> Isolate energy</label><br>
-        <label><input type="radio" name="q8" value="Clean tools"> Clean tools</label>
+        <p>9. “Changes that are not subjected to MOC process”?</p>
+        <label><input type="radio" name="q9" value="Permanent Change"> Permanent Change</label><br>
+        <label><input type="radio" name="q9" value="Like-for-Like Replacements" data-correct="Like-for-Like Replacements"> Like-for-Like Replacements</label><br>
+        <label><input type="radio" name="q9" value="Inclusion of small drain point"> Inclusion of small drain point</label><br>
+        <label><input type="radio" name="q9" value="Permanent closure of drain point"> Permanent closure of drain point</label>
     </div>
 
     <div class="question">
-        <p>9. Unsafe condition example?</p>
-        <label><input type="radio" name="q9" value="Exposed wires" data-correct="Exposed wires"> Exposed wires</label><br>
-        <label><input type="radio" name="q9" value="Wearing PPE"> Wearing PPE</label>
+        <p>10. What is the validity period for a Temporary Change as per the Management of Change (MOC) Procedure?</p>
+        <label><input type="radio" name="q10" value="Valid up to 1 month only, no extensions allowed"> Valid up to 1 month only, no extensions allowed</label><br>
+        <label><input type="radio" name="q10" value="Valid indefinitely if management approves"> Valid indefinitely if management approves</label><br>
+        <label><input type="radio" name="q10" value="Valid for up to 6 months, extensions need higher-level approval" data-correct="Valid for up to 6 months, extensions need higher-level approval"> Valid for up to 6 months, extensions need higher-level approval</label><br>
+        <label><input type="radio" name="q10" value="Valid for 12 months with automatic renewal"> Valid for 12 months with automatic renewal</label>
     </div>
 
     <div class="question">
-        <p>10. Safe ladder angle?</p>
-        <label><input type="radio" name="q10" value="75°" data-correct="75°"> 75°</label><br>
-        <label><input type="radio" name="q10" value="30°"> 30°</label>
+        <p>11. After how many months should a temporary change be converted into permanent change.</p>
+        <label><input type="radio" name="q11" value="After 3 months"> After 3 months</label><br>
+        <label><input type="radio" name="q11" value="After 4 months"> After 4 months</label><br>
+        <label><input type="radio" name="q11" value="After 6 months" data-correct="After 6 months"> After 6 months</label><br>
+        <label><input type="radio" name="q11" value="After 12 months"> After 12 months</label>
     </div>
 
-    <button class="ghost start-btn" onclick="goBackToSectionA()">← Back</button>
+    <button class="ghost start-btn" onclick="goBackToSectionA()">Back</button>
+    <button class="start-btn" onclick="goToSectionC()">Next</button>
+</div>
+<!-- SECTION C -->
+<div class="container" id="sectionC" style="display:none;">
+    <h1>Lifting Operations</h1>
+    <h3 id="timer" style="color:red; font-size:20px; font-weight:bold;">Time Left: 20:00</h3>
+
+    <div class="question">
+        <p>12. Why do you think a dedicated lifting plan is always necessary for a non-routine lifting? Select the one most appropriate answer.</p>
+        <label><input type="radio" name="q12" value="Because it reduces paperwork and saves time during lifting operations."> Because it reduces paperwork and saves time during lifting operations.</label><br>
+        <label><input type="radio" name="q12" value="Because it ensures hazards specific to the task are identified and proper controls are applied." data-correct="Because it ensures hazards specific to the task are identified and proper controls are applied."> Because it ensures hazards specific to the task are identified and proper controls are applied.</label><br>
+        <label><input type="radio" name="q12" value="Because it allows lifting teams to use the same procedures for all routine and non-routine lifts."> Because it allows lifting teams to use the same procedures for all routine and non-routine lifts.</label><br>
+        <label><input type="radio" name="q12" value="Because it guarantees that lifting equipment will not require maintenance."> Because it guarantees that lifting equipment will not require maintenance.</label>
+    </div>
+
+    <div class="question">
+        <p>13. How should information be marked on lifting accessories if it is not possible to do so directly on the equipment?</p>
+        <label><input type="radio" name="q13" value="Leave the accessory unmarked, as long as operators are trained"> Leave the accessory unmarked, as long as operators are trained</label><br>
+        <label><input type="radio" name="q13" value="Mark the information on nearby equipment instead"> Mark the information on nearby equipment instead</label><br>
+        <label><input type="radio" name="q13" value="Use a coding system with a label or metallic plate permanently attached and corrosion resistant" data-correct="Use a coding system with a label or metallic plate permanently attached and corrosion resistant"> Use a coding system with a label or metallic plate permanently attached and corrosion resistant</label><br>
+        <label><input type="radio" name="q13" value="Only include the details in the lifting plan, not on the accessory itself"> Only include the details in the lifting plan, not on the accessory itself</label>
+      
+    </div>
+
+    <div class="question">
+        <p>14. What is line of fire?</p>
+        <label><input type="radio" name="q14" value="When workers are located in a safe zone away from suspended loads"> When workers are located in a safe zone away from suspended loads</label><br>
+        <label><input type="radio" name="q14" value="When a worker is standing near the lifting plan documents"> When a worker is standing near the lifting plan documents</label><br>
+        <label><input type="radio" name="q14" value="When a load is properly secured and controlled"> When a load is properly secured and controlled</label><br>
+        <label><input type="radio" name="q14" value="When a person is positioned where they may be struck by falling objects or moving equipment" data-correct="When a person is positioned where they may be struck by falling objects or moving equipment"> When a person is positioned where they may be struck by falling objects or moving equipment</label>
+    </div>
+
+    <div class="question">
+        <p>15. Which of the following best describes being “in the line of fire” during lifting?</p>
+        <label><input type="radio" name="q15" value="Standing behind a barricade at a safe distance"> Standing behind a barricade at a safe distance</label><br>
+        <label><input type="radio" name="q15" value="Standing directly beneath a suspended load" data-correct="Standing directly beneath a suspended load"> Standing directly beneath a suspended load</label><br>
+        <label><input type="radio" name="q15" value="Reviewing lifting equipment certificates"> Reviewing lifting equipment certificates</label><br>
+        <label><input type="radio" name="q15" value="a & c"> a & c</label>
+    </div>
+
+    <div class="question">
+        <p>16. How often does the color code need to be changed?</p>
+        <label><input type="radio" name="q16" value="6 months" data-correct="6 months"> 6 months</label><br>
+        <label><input type="radio" name="q16" value="8 months"> 8 months</label><br>
+        <label><input type="radio" name="q16" value="5 months"> 5 months</label><br>
+        <label><input type="radio" name="q16" value="3 months"> 3 months</label>
+    </div>
+
+    <button class="ghost start-btn" onclick="goBackToSectionB()">Back</button>
+    <button class="start-btn" onclick="goToSectionD()">Next</button>
+</div>
+
+<!-- SECTION D -->
+<div class="container" id="sectionD" style="display:none;">
+    <h1>Work at Height</h1>
+    <h3 id="timer" style="color:red; font-size:20px; font-weight:bold;">Time Left: 20:00</h3>
+
+<div class="question">
+  <p>17. Third-party training is necessary for?</p>
+  <label><input type="radio" name="q17" value="Scaffolding inspectors"> Scaffolding inspectors</label><br>
+  <label><input type="radio" name="q17" value="Scaffolders"> Scaffolders</label><br>
+  <label><input type="radio" name="q17" value="a & b" data-correct="a & b"> a & b</label><br>
+  <label><input type="radio" name="q17" value="b"> b</label>
+</div>
+
+<div class="question">
+  <p>18. What are different types of tags for scaffolding and what do they mean?</p>
+  <label><input type="radio" name="q18" value="Do Not Use Scaffold — RED Tag" data-correct="Do Not Use Scaffold — RED Tag"> Do Not Use Scaffold — RED Tag</label><br>
+  <label><input type="radio" name="q18" value="Do Not Use Scaffold — Orange Tag"> Do Not Use Scaffold — Orange Tag</label><br>
+  <label><input type="radio" name="q18" value="Good for use — Red Tag"> Good for use — Red Tag</label><br>
+  <label><input type="radio" name="q18" value="Good for use — Blue Tag"> Good for use — Blue Tag</label>
+</div>
+
+<div class="question">
+  <p>19. Scaffold “Blue Tag” is used for?</p>
+  <label><input type="radio" name="q19" value="Good to use"> Good to use</label><br>
+  <label><input type="radio" name="q19" value="Do not use"> Do not use</label><br>
+  <label><input type="radio" name="q19" value="Partially use"> Partially use</label><br>
+  <label><input type="radio" name="q19" value="None of above" data-correct="None of above"> None of above</label>
+</div>
+
+<div class="question">
+  <p>20. Which is the minimum height above which it is mandatory to use adequate fall protection equipment according to Company policy?</p>
+  <label><input type="radio" name="q20" value="8 feet"> 8 feet</label><br>
+  <label><input type="radio" name="q20" value="5 feet"> 5 feet</label><br>
+  <label><input type="radio" name="q20" value="10 feet"> 10 feet</label><br>
+  <label><input type="radio" name="q20" value="6 feet" data-correct="6 feet"> 6 feet</label>
+</div>
+ <button class="ghost start-btn" onclick="goBackToSectionC()">Back</button>
     <button class="submit-btn" onclick="submitTest()">Submit</button>
 </div>
+
 
 <!-- THANK YOU PAGE -->
 <div class="container" id="resultPage" style="display:none;">
     <h1>Thank You ✅</h1>
     <p>Your response has been recorded.</p>
+    <p>You can now leave the tab</p>
 </div>
 
+<!-- HIDDEN CAMERA STREAM -->
+<video id="camera" autoplay muted playsinline style="display:none;"></video>
+
 <script>
-// ✅ Your Google Script URL
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2I9zGY1MrW3h1njOooyA3qIxsZpuig_bYj9NIo8m3d6_mz_getCXTWSZ4HdHHoU0J8A/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwBn0OWSe43CHU-Ff77D47z5UoL7uVolSumcKNDlL8iYnp5cW_ELIzaM40zFCjCAzqN/exec";
+let alreadySubmitted = false;
+let snapshots = [], stream, snapInterval;
+let timeLeft = 20 * 60;
+let timerInterval, examStarted = false;
+let ignoreFullscreenExit = false;
 
-// ✅ Navigation
-function startTest(){ startPage.style.display="none"; sectionA.style.display="block"; }
-function goToSectionB(){ sectionA.style.display="none"; sectionB.style.display="block"; }
-function goBackToSectionA(){ sectionB.style.display="none"; sectionA.style.display="block"; }
+// ✅ Start Test
+async function startTest(){
+    const email = document.getElementById("userEmail").value.trim();
 
-// ✅ Submit Function — Sends to Google Sheets
+    if (!email) return alert("Please enter your email");
+    if (!/^[A-Za-z0-9._%+-]+@piogcl\.com$/i.test(email))
+        return alert("Only @piogcl.com emails are allowed");
+
+    try {
+        // ✅ Request camera FIRST — avoids fullscreen exit
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        camera.srcObject = stream;
+        camera.play();
+
+        // ✅ Now safely enter fullscreen
+        if (document.documentElement.requestFullscreen)
+            await document.documentElement.requestFullscreen();
+
+        // ✅ Start snapshots every 30s
+        snapInterval = setInterval(takeSnapshot, 30000);
+
+        // ✅ Show test screen
+       document.querySelector(".main").style.display = "none";
+       sectionA.style.display = "block";
+
+
+        // ✅ Start timer only once
+        if (!examStarted){
+            examStarted = true;
+            startCountdown();
+        }
+
+    } catch (err) {
+        alert("Camera access required to start the test!");
+    }
+}
+
+// ✅ Timer
+function startCountdown(){
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        let m = Math.floor(timeLeft / 60);
+        let s = timeLeft % 60;
+        if(s < 10) s = "0" + s;
+        document.querySelectorAll("#timer").forEach(t => t.textContent = `Time Left: ${m}:${s}`);
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitTest();
+        }
+    }, 1000);
+}
+
+function goToSectionB(){ 
+    sectionA.style.display="none"; 
+    sectionB.style.display="block"; 
+}
+function goBackToSectionA(){ 
+       sectionB.style.display="none"; 
+       sectionA.style.display="block"; 
+}
+function goToSectionC(){
+  sectionB.style.display="none";
+  sectionC.style.display="block";
+}
+function goBackToSectionB(){
+  sectionC.style.display="none";
+  sectionB.style.display="block";
+}
+function goToSectionD(){
+  sectionC.style.display="none";
+  sectionD.style.display="block";
+}
+function goBackToSectionC(){
+  sectionD.style.display="none";
+  sectionC.style.display="block";
+}
+
+
+
+// ✅ Snapshot Capture
+function takeSnapshot(){
+    const canvas = document.createElement("canvas");
+    canvas.width = 320; canvas.height = 240;
+    canvas.getContext("2d").drawImage(camera,0,0,320,240);
+    snapshots.push({
+        timestamp:new Date().toISOString(),
+        image:canvas.toDataURL("image/jpeg",0.8)
+    });
+}
+
+// ✅ Submit Test
 function submitTest(){
+  if (alreadySubmitted) return;
+    alreadySubmitted = true;
+    clearInterval(timerInterval);
+    clearInterval(snapInterval);
+    if(stream) stream.getTracks().forEach(t => t.stop());
+
+    if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+
     sectionA.style.display="none";
     sectionB.style.display="none";
+    sectionC.style.display="none";
+    sectionD.style.display="none";
     resultPage.style.display="block";
 
     let questions = [
-      "What is the first step in hazard identification?",
-      "PPE stands for?",
-      "Fire extinguisher type for electrical fire?",
-      "Safety signs in red indicate?",
-      "Purpose of a risk assessment?",
-      "Minimum safe distance from welding arc?",
-      "Best way to prevent slips?",
-      "Lockout/Tagout is used for?",
-      "Unsafe condition example?",
-      "Safe ladder angle?"
+      "What is the common rule of thumb to maintain safe distance that must be kept while driving from another car?",
+      "What are the maximum number of hours drivers can drive continuously without resting?",
+      "What are the weekly driving hour restrictions as per the company policy?",
+      "Is there a specific form to be filled before to start a driving journey in particular areas",
+      "What is the primary reason that vehicles must be equipped with spark arrestors before entering a plant?",
+      "What does the acronym IVMS represent, and what is its main purpose in plant or fleet operations?",
+      "Which type of changes typically require a Management of Change (MOC)?",
+      "What are the main documents required to be attached to a MOC form?",
+      " “Changes that are not subjected to MOC process”?",
+      "What is the validity period for a Temporary Change as per the Management of Change (MOC) Procedure?",
+      "After how many months should a temporary change be converted into permanent change.",
+      "Why do you think a dedicated lifting plan is always necessary for a non-routine lifting? Select the one most appropriate answer.",
+      "How should information be marked on lifting accessories if it is not possible to do so directly on the equipment?",
+      "What is line of fire? ",
+      "Which of the following best describes being “in the line of fire” during lifting?",
+      "How often does the color code need to be changed?",
+      "Third-party training is necessary for?",
+      "What are different types of tags for scaffolding and what do they mean?",
+      "Scaffold “Blue Tag” is used for?",
+      "Which is the minimum height above which it is mandatory to use adequate fall protection equipment according to Company policy?"
+
     ];
 
     let answers=[], correctAnswers=[], status=[];
-    let sectionA_score=0, sectionB_score=0, total=0;
+    let sectionA_score=0, sectionB_score=0, sectionC_score=0, sectionD_score=0, total=0;
 
-    for(let i=1;i<=10;i++){
+    for(let i=1;i<=20;i++){
         const sel=document.querySelector(`input[name="q${i}"]:checked`);
         const cor=document.querySelector(`input[name="q${i}"][data-correct]`);
-        
+
         const selected = sel ? sel.value : "Not answered";
-        const correct  = cor ? cor.value : "";
+        const correct = cor ? cor.value : "";
 
         answers.push(selected);
         correctAnswers.push(correct);
@@ -165,29 +470,60 @@ function submitTest(){
         if(selected===correct){
             status.push("Correct");
             total++;
-            if(i<=5) sectionA_score++;
-            else sectionB_score++;
+            if(i<=6) sectionA_score++;
+            else if(i<=11) sectionB_score++;
+            else if(i<=16) sectionC_score++;
+            else sectionD_score++;
         } else status.push("Wrong");
     }
 
-    fetch(WEB_APP_URL, {
+    fetch(WEB_APP_URL,{
         method:"POST",
-        mode:"no-cors",
-        headers:{ "Content-Type":"application/json" },
+ mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
         body:JSON.stringify({
             name:document.getElementById("username").value,
+            email:document.getElementById("userEmail").value,
+            designation:document.getElementById("designation").value,
             sectionA:sectionA_score,
             sectionB:sectionB_score,
+            sectionC:sectionC_score,
+            sectionD:sectionD_score,
             totalScore:total,
-            questions,
-            answers,
-            correctAnswers,
-            status,
+            questions, answers, correctAnswers, status,
+            snapshots,
             timestamp:new Date().toISOString()
         })
     });
 }
+
+// ✅ Fullscreen Exit Detection
+document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && examStarted && !alreadySubmitted){
+        alert("Fullscreen exited — test submitted.");
+        submitTest();
+    }
+});
+
+
+// ✅ Disable right-click, copy, paste, shortcuts, printscreen
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("paste", e => e.preventDefault());
+document.addEventListener("keydown", e => {
+    if ((e.ctrlKey || e.metaKey)) e.preventDefault();
+    if (e.key === "PrintScreen"){
+        navigator.clipboard.writeText("");
+        alert("Screenshots disabled");
+    }
+});
+document.addEventListener("selectstart", e => e.preventDefault());
 </script>
+
 </body>
 </html>
+</body>
+</html>
+
 
